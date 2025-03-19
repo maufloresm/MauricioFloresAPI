@@ -1,8 +1,10 @@
 package com.product.api.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Representa una categoría de productos en la aplicación.
@@ -13,11 +15,22 @@ import jakarta.persistence.Table;
 public class Category {
 
     @Id
+    @Column(name = "category_id")
+    @JsonProperty("category_id") // Para serializar el campo como category_id en JSON
     private int category_id;
 
+    @Column(name = "category", nullable = false)
+    @JsonProperty("category") // Para serializar el campo como category en JSON
     private String category;
+
+    @Column(name = "tag", nullable = false, unique = true) // tag no puede ser nulo ni repetido
+    @JsonProperty("tag") // Para serializar el campo como tag en JSON
     private String tag;
+
+    @Column(name = "status")
+    @JsonProperty("status")
     private int status = 1;
+
     private static int idCounter = 0;
 
     /**
@@ -43,40 +56,38 @@ public class Category {
         this.tag = tag;
     }
 
-    /**
-     * Obtiene el identificador único de la categoría.
-     * 
-     * @return ID de la categoría.
-     */
+    // Getters y setters para los atributos
+
     public int getCategoryId() {
         return category_id;
     }
 
-    /**
-     * Devuelve el nombre de la categoría.
-     * 
-     * @return Nombre de la categoría.
-     */
+    public void setCategoryId(int category_id) {
+        this.category_id = category_id;
+    }
+
     public String getCategory() {
         return category;
     }
 
-    /**
-     * Recupera el tag de la categoría.
-     * 
-     * @return Tag de la categoría.
-     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getTag() {
         return tag;
     }
 
-    /**
-     * Indica si la categoría está activa o inactiva.
-     * 
-     * @return Estado actual de la categoría (1 = activa, 0 = inactiva).
-     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public int getStatus() {
         return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     /**
@@ -86,21 +97,6 @@ public class Category {
         this.status = (this.status == 1) ? 0 : 1;
     }
 
-    /**
-     * Asigna un nuevo estado a la categoría.
-     * 
-     * @param i Nuevo estado (1 para activo, 0 para inactivo).
-     */
-    public void setStatus(int i) {
-        this.status = i;
-    }
-
-    /**
-     * Representación en cadena del objeto Category.
-     * Muestra los valores de los atributos en un formato legible.
-     * 
-     * @return Cadena con los valores de la categoría.
-     */
     @Override
     public String toString() {
         return String.format("{ID: %d, Categoría: %s, Tag: %s, Estado: %d}", 
