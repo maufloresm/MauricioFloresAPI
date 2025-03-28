@@ -6,25 +6,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Representa una categoría de productos en la aplicación.
- * Se almacena en la base de datos bajo la tabla "category".
- */
+// Esta clase representa una categoría de productos en la base de datos
 @Entity
 @Table(name = "category")
 public class Category {
 
     @Id
     @Column(name = "category_id")
-    @JsonProperty("category_id") // Para serializar el campo como category_id en JSON
+    @JsonProperty("category_id")
     private int category_id;
 
     @Column(name = "category", nullable = false)
-    @JsonProperty("category") // Para serializar el campo como category en JSON
+    @JsonProperty("category")
     private String category;
 
-    @Column(name = "tag", nullable = false, unique = true) // tag no puede ser nulo ni repetido
-    @JsonProperty("tag") // Para serializar el campo como tag en JSON
+    @Column(name = "tag", nullable = false, unique = true)
+    @JsonProperty("tag")
     private String tag;
 
     @Column(name = "status")
@@ -33,31 +30,21 @@ public class Category {
 
     private static int idCounter = 0;
 
-    /**
-     * Constructor sin parámetros.
-     * Asigna valores por defecto a los atributos.
-     */
+    // Constructor por defecto: crea una categoría con valores generados automáticamente
     public Category() {
         this.category_id = ++idCounter;
         this.category = "Cat" + this.category_id;
         this.tag = "tag" + this.category_id;
     }
 
-    /**
-     * Constructor con parámetros personalizados.
-     * Permite inicializar la categoría con un nombre y un tag específico.
-     * 
-     * @param category Nombre de la categoría.
-     * @param tag Identificador único asociado a la categoría.
-     */
+    // Constructor personalizado: permite definir una categoría con nombre y tag específicos
     public Category(String category, String tag) {
         this.category_id = ++idCounter;
         this.category = category;
         this.tag = tag;
     }
 
-    // Getters y setters para los atributos
-
+    // Métodos para obtener y establecer valores de los atributos
     public int getCategoryId() {
         return category_id;
     }
@@ -90,13 +77,12 @@ public class Category {
         this.status = status;
     }
 
-    /**
-     * Alterna el estado de la categoría entre activo (1) e inactivo (0).
-     */
+    // Método para alternar el estado de la categoría entre activo e inactivo
     public void changeStatus() {
         this.status = (this.status == 1) ? 0 : 1;
     }
 
+    // Representación en cadena de la categoría
     @Override
     public String toString() {
         return String.format("{ID: %d, Categoría: %s, Tag: %s, Estado: %d}", 
