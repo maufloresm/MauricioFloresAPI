@@ -16,10 +16,14 @@ import com.product.api.service.SvcProductImage;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/product-image")
+@Tag(name = "product image", description = "Carga de imágenes de productos")
 public class CtrlProductImage {
 
 
@@ -34,6 +38,7 @@ public class CtrlProductImage {
     }
 	
     @DeleteMapping("/{id}")
+     @Operation(summary = "Borra una imagen", description = "Borra una imagen que esté ligada	 a un producto del sistema y a nuestra base de datos.")
     public ResponseEntity<ApiResponse> deleteProductImage(@PathVariable Integer id) {
         return svc.deleteProductImage(id);
     }
