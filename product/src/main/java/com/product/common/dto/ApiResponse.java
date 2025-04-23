@@ -1,4 +1,4 @@
-package com.product.api.commons.dto;
+package com.product.common.dto;
 
 public class ApiResponse {
 

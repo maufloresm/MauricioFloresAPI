@@ -4,27 +4,26 @@ import org.springframework.dao.DataAccessException;
 
 public class DBAccessException extends RuntimeException {
     
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L; // Identificador único de la clase
     
-    // Guarda la excepción original generada en la base de datos
-    private DataAccessException exception;
+    private DataAccessException exception; // Excepción original de la base de datos
     
-    // Constructor que recibe y almacena la excepción
+    // Constructor: recibe una excepción de acceso a datos y la guarda
     public DBAccessException(DataAccessException e) {
         this.exception = e;
     }
 
-    // Devuelve la excepción almacenada
+    // Devuelve la excepción almacenada (por si queremos inspeccionarla)
     public DataAccessException getException() {
         return exception;
     }
 
-    // Permite cambiar la excepción (no suele ser necesario)
+    // Permite cambiar la excepción guardada (rara vez se usa)
     public void setException(DataAccessException exception) {
         this.exception = exception;
     }
 
-    // Retorna el ID de serialización de la clase
+    // Devuelve el ID único de la clase (normalmente no hace falta usarlo)
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
