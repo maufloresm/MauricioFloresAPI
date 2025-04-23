@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.product.api.dto.in.DtoProductIn;
 import com.product.api.dto.out.DtoProductListOut;
 import com.product.api.dto.out.DtoProductOut;
@@ -27,17 +30,20 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/product")
+@Tag(name = "product", description = "Administración de productos")
 public class CtrlProduct {
 
 	@Autowired
 	SvcProduct svc;
 
 	@GetMapping
+        @Operation(summary = "Enlista los productos", description = "Regresa una lista completa de productos ya registrados.")
 	public ResponseEntity<List<DtoProductListOut>> getProducts() {
 		return svc.getProducts();
 	}
 
 	@GetMapping("/{id}")
+        @Operation(summary = "Obten un producto", description = "Enseña los detalles de un producto, con su respectiva imágen en base64.")
 	public ResponseEntity<DtoProductOut> getProduct(@PathVariable Integer id) {
 		return svc.getProduct(id);
 	}
