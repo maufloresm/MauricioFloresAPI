@@ -22,12 +22,15 @@ import com.product.api.entity.Category;
 import com.product.exception.ApiException;
 
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 // Controlador para manejar las categorías. Básicamente, aquí tenemos las rutas 
 // que nos permiten hacer cosas con las categorías: obtenerlas, crearlas, actualizarlas y más.
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "category", description = "Catálogo de categorias")
 public class CtrlCategory {
 
 	@Autowired
@@ -35,12 +38,14 @@ public class CtrlCategory {
 	
     // Devuelve todas las categorías que existen.
     @GetMapping
+     @Operation(summary = "Enlista las categorías", description = "Regresa las categorías que ya están registradas (activas e inactivas)")
     public ResponseEntity<List<Category>> darCategorias() {
         return svc.getCategories();
     }
     
     // Devuelve solo las categorías activas (o sea, las que tienen status = 1).
     @GetMapping("/active")
+    @Operation(summary = "Checa el detalle de la región", description = "Regresa el detalle de la región")
 	public ResponseEntity<List<Category>> getActiveCategories() {
 		return svc.getActiveCategories();
 	}
